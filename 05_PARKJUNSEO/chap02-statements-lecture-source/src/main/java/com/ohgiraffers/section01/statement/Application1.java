@@ -1,9 +1,11 @@
 package com.ohgiraffers.section01.statement;
 
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import static com.ohgiraffers.common.JDBCTemplate.close;
 import static com.ohgiraffers.common.JDBCTemplate.getConnection;
@@ -16,20 +18,31 @@ public class Application1 {
         Connection con = getConnection();
         System.out.println("con = " + con);
 
-        Statement stmt = null;      // 쿼리를 운반하고 결과를 반환
-        ResultSet rset = null;      // 조회할 예정 (DML 작업이면 ResultSet 대신 int로 처리)
+        Statement stmt = null;          // 쿼리를 운반하고 결과를 반환
+        ResultSet rset = null;          // 조회할 예정(DML 작업이면 ResultSet 대신 int로 처리)
 
         try {
-            stmt = con.createStatement();       // console창 연 것과 같음
+            stmt = con.createStatement();
             rset = stmt.executeQuery("SELECT * FROM tbl_menu");
 
+            /* while문 안의 rset은 한 행을 의미*/
+//            while(rset.next()) {
+//                System.out.print(rset.getString("menu_name") + "  ");
+//                System.out.print(rset.getInt("menu_price") + "\n");
+//            }
+
+            ArrayList<MenuDTO> list = null;
             while(rset.next()) {
-                System.out.print(rset.getString("menu_name") + " ");     // 이렇게 다음 객체가 있는지 확인하면서 가져와야 함
-                System.out.print(rset.getInt("menu_price") + "\n");
+                list = new ArrayList<>();
+                list.add(new MenuDTO(rset.getString("menu_name"), rset.getInt("menu_price")));
+            }
+
+            for(MenuDTO dto : list) {
+                System.out.println(dto);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {     // 생성 역순으로 닫아주는 작업
+        } finally {
             close(rset);
             close(stmt);
             close(con);

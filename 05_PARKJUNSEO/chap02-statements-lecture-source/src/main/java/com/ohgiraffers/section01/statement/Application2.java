@@ -1,5 +1,6 @@
 package com.ohgiraffers.section01.statement;
 
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +11,7 @@ import static com.ohgiraffers.common.JDBCTemplate.close;
 import static com.ohgiraffers.common.JDBCTemplate.getConnection;
 
 public class Application2 {
-    /* 메뉴코드를 입력받아서 하나의 메뉴를 */
+    /* 메뉴코드를 입력받아서 하나의 메뉴를 조회하는 기능 */
     public static void main(String[] args) {
 
         Connection con = getConnection();
@@ -19,22 +20,18 @@ public class Application2 {
 
         try {
             stmt = con.createStatement();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("메뉴코드를 입력하세요 : ");
-        int menuCode = sc.nextInt();
+            Scanner sc = new Scanner(System.in);
+            System.out.print("메뉴코드를 입력하세요 : ");
+            int menuCode = sc.nextInt();
 
-        String query = "select * from menu where menu_code = " + menuCode;
-        System.out.println("query = " + query);
+            String query = "SELECT * FROM tbl_menu WHERE menu_code = " + menuCode;
+//            String query = "SELECT * FROM tbl_menu WHERE menu_name = '" + menuName + "'";
+            System.out.println("query = " + query);
 
-        try {
             rset = stmt.executeQuery(query);
             if(rset.next()) {
-                System.out.print(rset.getString("menu_name") + " ");
-                System.out.print(rset.getInt("menu_price\n"));
+                System.out.println(rset.getString("menu_name") + "  " + rset.getInt("menu_price"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -44,5 +41,4 @@ public class Application2 {
             close(con);
         }
     }
-
 }
