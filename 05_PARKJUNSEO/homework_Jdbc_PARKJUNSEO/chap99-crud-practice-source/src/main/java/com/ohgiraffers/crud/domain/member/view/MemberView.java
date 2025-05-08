@@ -28,10 +28,10 @@ public class MemberView {
 
             switch (input) {
                 case 1 :  ms.selectAllMembers(); break;
-                case 2 :  break;
-                case 3 :  break;
-                case 4 :  break;
-                case 5 :  break;
+                case 2 :  ms.findAMember(); break;
+                case 3 :  ms.joinMember(); break;
+                case 4 :  ms.modifyMember(); break;
+                case 5 :  ms.withdrawMember(); break;
                 case 9 : return;
                 default:
                     System.out.println("번호를 잘못 입력하셨습니다.");

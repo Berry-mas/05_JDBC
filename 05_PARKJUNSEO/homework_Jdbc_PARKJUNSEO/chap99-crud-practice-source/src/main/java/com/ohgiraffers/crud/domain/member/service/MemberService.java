@@ -11,22 +11,34 @@ import static com.ohgiraffers.crud.common.JDBCTemplate.getConnection;
 
 public class MemberService {
 
-    private final MemberRepository memberRepository;
+    private final MemberRepository mr;
 
     public MemberService() {
-        memberRepository = new MemberRepository();
+        mr = new MemberRepository();
     }
 
     public void selectAllMembers() {
 
         Connection con = getConnection();
 
-        List<Member> memberList = memberRepository.selectAllMembers(con);
+        List<Member> memberList = mr.selectAllMembers(con);
 
         for(Member member : memberList) {
             System.out.println(member);
         }
 
         close(con);
+    }
+
+    public void findAMember() {
+    }
+
+    public void joinMember() {
+    }
+
+    public void modifyMember() {
+    }
+
+    public void withdrawMember() {
     }
 }
