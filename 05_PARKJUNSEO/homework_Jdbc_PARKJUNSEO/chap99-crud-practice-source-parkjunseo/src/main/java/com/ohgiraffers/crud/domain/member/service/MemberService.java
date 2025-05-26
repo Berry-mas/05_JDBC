@@ -30,15 +30,5 @@ public class MemberService {
         close(con);
     }
 
-    public void findAMember() {
-    }
 
-    public void joinMember() {
-    }
-
-    public void modifyMember() {
-    }
-
-    public void withdrawMember() {
-    }
 }
