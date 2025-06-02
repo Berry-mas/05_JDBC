@@ -36,7 +36,7 @@ public class MemberRepository {
 
         System.out.println("sql = " + sql);
 
-        List<Member> members = null;
+        List<Member> members;
         try {
             pstmt = con.prepareStatement(sql);
 

@@ -19,16 +19,13 @@ public class MemberService {
 
     public void selectAllMembers() {
 
-        Connection con = getConnection();
-
-        List<Member> memberList = mr.selectAllMembers(con);
-
-        for(Member member : memberList) {
-            System.out.println(member);
-        }
-
-        close(con);
     }
 
 
+    public void findAMemberByEmpNo(String empNo) {
+
+    }
+
+    public void findAMenberByEmpName(String empName) {
+    }
 }

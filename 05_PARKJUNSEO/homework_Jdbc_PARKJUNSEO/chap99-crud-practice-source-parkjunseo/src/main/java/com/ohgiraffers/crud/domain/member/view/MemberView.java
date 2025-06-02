@@ -1,13 +1,12 @@
 package com.ohgiraffers.crud.domain.member.view;
 
 import com.ohgiraffers.crud.domain.member.controller.MemberController;
+import com.ohgiraffers.crud.domain.member.dto.Member;
 import com.ohgiraffers.crud.domain.member.service.MemberService;
 
 import java.util.Scanner;
 
 public class MemberView {
-
-
 
     public static void main(String[] args) {
         MemberController mc = new MemberController();
@@ -29,7 +28,7 @@ public class MemberView {
 
             switch (input) {
                 case 1 :  mc.selectAllMembers(); break;
-                case 2 :  mc.findAMember(); break;
+                case 2 :  mc.findAMember(howToSearch()); break;
                 case 3 :  mc.joinMember(); break;
                 case 4 :  mc.modifyMember(); break;
                 case 5 :  mc.withdrawMember(); break;
@@ -38,5 +37,28 @@ public class MemberView {
                     System.out.println("번호를 잘못 입력하셨습니다.");
             }
         }
+    }
+
+    private static int howToSearch() {
+        Scanner sc = new Scanner(System.in);
+        String howToSearch = """
+                ============= 검색 방법 (사원 번호 / 이름) : ===============
+                1. 사원 번호
+                2. 이름
+                9. 돌아가기
+                검색 방법을 선택해주세요 : """ + " ";
+
+        while (true) {
+            System.out.print(howToSearch);
+            int input = sc.nextInt();
+            switch (input) {
+                case 1 : return 1;
+                case 2 : return 2;
+                case 9 : break;
+                default:
+                    System.out.println("잘못된 번호를 입력하였습니다.");
+            }
+        }
+
     }
 }
