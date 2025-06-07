@@ -34,15 +34,13 @@ public class MemberRepository {
         ResultSet rset = null;
         String sql = prop.getProperty("selectAllMembers");
 
-        System.out.println("sql = " + sql);
-
         List<Member> members;
         try {
             pstmt = con.prepareStatement(sql);
 
             rset = pstmt.executeQuery();
             members = new ArrayList<>();
-            while(rset.next()) {
+            while (rset.next()) {
                 Member member = new Member();
                 member.setEmpId(rset.getString("emp_id"));
                 member.setEmpName(rset.getString("emp_name"));
@@ -64,4 +62,72 @@ public class MemberRepository {
         return members;
     }
 
+
+    public int insertMember(Connection con, Member member) {
+        PreparedStatement pstmt = null;
+        int result = 0;
+        try {
+            String sql = prop.getProperty("insertMember");
+
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, member.getEmpId());
+            pstmt.setString(2, member.getEmpName());
+            pstmt.setString(3, member.getEmpNo());
+            pstmt.setString(4, member.getDept().getDeptId());
+            pstmt.setString(5, "J7");
+            pstmt.setString(6, "S6");
+
+            result = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(pstmt);
+        }
+        return result;
+
+    }
+
+    public int updateMember(Connection con, Member member) {
+        PreparedStatement pstmt = null;
+        int result = 0;
+        try {
+            String sql = prop.getProperty("updateMenu");
+
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, member.getEmpName());
+            pstmt.setString(2, member.getEmpNo());
+            pstmt.setString(3, member.getDept().getDeptId());
+            pstmt.setString(4, "J7");
+            pstmt.setString(5, "S6");
+            pstmt.setString(6, member.getEmpId());
+
+            result = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(pstmt);
+        }
+        return result;
+    }
+
+    public int deleteMember(Connection con, String inputEmpNo) {
+        PreparedStatement pstmt = null;
+        int result = 0;
+        try {
+            String sql = prop.getProperty("deleteMember");
+
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, inputEmpNo);
+
+            result = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(pstmt);
+        }
+        return result;
+    }
 }

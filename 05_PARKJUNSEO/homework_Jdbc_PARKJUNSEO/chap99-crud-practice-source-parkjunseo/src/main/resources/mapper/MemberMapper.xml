@@ -10,8 +10,36 @@
             , b.dept_id
             , b.dept_title
         FROM
-            employee a
-        join department b
-        on b.DEPT_ID = a.DEPT_CODE
+              employee a
+        JOIN department b ON b.DEPT_ID = a.DEPT_CODE
+        ORDER BY a.emp_id
     </entry>
+    <entry key="insertMember">
+        INSERT INTO employee (
+              emp_id
+            , emp_name
+            , emp_no
+            , dept_code
+            , job_code
+            , sal_level
+        )
+        VALUES (?, ?, ?, ?, ?, ?)
+    </entry>
+    <entry key="updateMenu">
+        UPDATE employee
+        SET
+              emp_name = ?
+            , emp_no = ?
+            , dept_code = ?
+            , job_code = ?
+            , sal_level = ?
+
+        WHERE emp_id = ?
+    </entry>
+    <entry key="deleteMember">
+        DELETE
+        FROM employee
+        WHERE emp_id = ?
+    </entry>
+
 </properties>
